@@ -80,6 +80,10 @@ fun SanpoApp(vm: SanpoViewModel, permissionGranted: Boolean, onRequestPermission
                 )
                 NavigationBarItem(
                     selected = tab == 1, onClick = { tab = 1 },
+                    icon = { Text("🧭", fontSize = 20.sp) }, label = { Text("ちず") },
+                )
+                NavigationBarItem(
+                    selected = tab == 2, onClick = { tab = 2 },
                     icon = { Text("🗺️", fontSize = 20.sp) }, label = { Text("たびの記録") },
                 )
             }
@@ -94,6 +98,7 @@ fun SanpoApp(vm: SanpoViewModel, permissionGranted: Boolean, onRequestPermission
                     onRequestPermission = onRequestPermission,
                     onDebugSteps = vm::addDebugSteps,
                 )
+                1 -> MapScreen()
                 else -> JourneyScreen(state)
             }
         }

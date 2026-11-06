@@ -42,6 +42,21 @@ object Pet {
         stages.indexOfLast { totalSteps >= it.steps }.coerceAtLeast(0)
 }
 
+/** 地図ぬりつぶしの称号 */
+data class ExploreRank(val name: String, val cells: Int)
+
+object Explore {
+    val ranks = listOf(
+        ExploreRank("おさんぽビギナー", 0),
+        ExploreRank("ご近所たんけん家", 50),
+        ExploreRank("町はかせ", 200),
+        ExploreRank("地図職人", 600),
+        ExploreRank("伝説の旅人", 1_500),
+    )
+
+    fun rankIndexFor(cells: Int): Int = ranks.indexOfLast { cells >= it.cells }.coerceAtLeast(0)
+}
+
 /** 2地点間の進み具合（0〜1） */
 fun progressBetween(total: Long, from: Long, to: Long): Float =
     if (to <= from) 1f else ((total - from).toFloat() / (to - from)).coerceIn(0f, 1f)

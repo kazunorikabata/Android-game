@@ -15,6 +15,9 @@ import androidx.compose.runtime.setValue
 import androidx.core.content.ContextCompat
 import com.kabata.sanpo.ui.SanpoApp
 import com.kabata.sanpo.ui.SanpoTheme
+import com.kabata.sanpo.walk.WalkTracker
+import org.osmdroid.config.Configuration
+import java.io.File
 
 class MainActivity : ComponentActivity() {
     private val vm: SanpoViewModel by viewModels()
@@ -29,6 +32,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        Configuration.getInstance().apply {
+            userAgentValue = packageName
+            osmdroidBasePath = File(filesDir, "osmdroid")
+            osmdroidTileCache = File(cacheDir, "osmdroid")
+        }
+        WalkTracker.init(applicationContext)
         permissionGranted = hasPermission()
         if (!permissionGranted) requestPermission()
 
