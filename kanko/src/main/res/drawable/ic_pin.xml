@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 地図のピン（色はコードで着色） -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="28dp"
+    android:height="36dp"
+    android:viewportWidth="28"
+    android:viewportHeight="36">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M14,0 C6.3,0 0,6.3 0,14 C0,24.5 14,36 14,36 C14,36 28,24.5 28,14 C28,6.3 21.7,0 14,0 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M14,7 m-5,0 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0 Z" />
+</vector>
