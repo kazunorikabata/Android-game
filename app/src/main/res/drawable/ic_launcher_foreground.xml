@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 足あと（肉球）アイコン -->
+<!-- お城のアイコン -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
@@ -7,17 +7,23 @@
     android:viewportHeight="108">
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M40,64 a14,12 0 1,0 28,0 a14,12 0 1,0 -28,0 Z" />
+        android:pathData="M30,82 L78,82 L72,68 L36,68 Z" />
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M32,47 a6,7 0 1,0 12,0 a6,7 0 1,0 -12,0 Z" />
+        android:pathData="M39,68 L69,68 L69,59 L39,59 Z" />
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M42,38 a6,7 0 1,0 12,0 a6,7 0 1,0 -12,0 Z" />
+        android:pathData="M31,61 L77,61 L67,52 L41,52 Z" />
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M54,38 a6,7 0 1,0 12,0 a6,7 0 1,0 -12,0 Z" />
+        android:pathData="M44,52 L64,52 L64,45 L44,45 Z" />
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M64,47 a6,7 0 1,0 12,0 a6,7 0 1,0 -12,0 Z" />
+        android:pathData="M37,47 L71,47 L62,39 L46,39 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M48,39 L60,39 L60,34 L48,34 Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M43,36 L65,36 L57,27 L51,27 Z" />
 </vector>

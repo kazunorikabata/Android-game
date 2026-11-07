@@ -1,7 +1,7 @@
 <resources>
-    <style name="Theme.Sanpo" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Castle" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/bg</item>
     </style>
-    <color name="bg">#FFF7F3E8</color>
-    <color name="icon_bg">#FF3E8E5A</color>
+    <color name="bg">#FFF6F1E6</color>
+    <color name="icon_bg">#FF8E2C2C</color>
 </resources>

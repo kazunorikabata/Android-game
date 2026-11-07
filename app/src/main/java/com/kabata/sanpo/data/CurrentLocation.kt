@@ -1,4 +1,4 @@
-package com.kabata.sanpo.meisho
+package com.kabata.sanpo.data
 
 import android.annotation.SuppressLint
 import android.location.Location
@@ -27,7 +27,6 @@ fun rememberCurrentLocation(enabled: Boolean): Location? {
 
         fun offer(l: Location) {
             val cur = location
-            // 新しい測位が明らかに悪い精度でなければ採用。古い位置（20秒以上前）は更新する
             if (cur == null || l.time - cur.time > 20_000 || l.accuracy <= cur.accuracy + 15) location = l
         }
 
@@ -42,7 +41,7 @@ fun rememberCurrentLocation(enabled: Boolean): Location? {
             for (p in listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)) {
                 if (!lm.isProviderEnabled(p)) continue
                 lm.getLastKnownLocation(p)?.let(::offer)
-                lm.requestLocationUpdates(p, 3_000L, 3f, listener, Looper.getMainLooper())
+                lm.requestLocationUpdates(p, 5_000L, 10f, listener, Looper.getMainLooper())
             }
         } catch (e: SecurityException) {
         } catch (e: IllegalArgumentException) {

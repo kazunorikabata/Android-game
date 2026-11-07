@@ -8,30 +8,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val Light = lightColorScheme(
-    primary = Color(0xFF3E8E5A),
+    primary = Color(0xFF8E2C2C),
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFC8EBD2),
-    secondary = Color(0xFFE0922F),
-    secondaryContainer = Color(0xFFFFE2BC),
-    background = Color(0xFFF7F3E8),
-    surface = Color(0xFFFFFCF5),
-    surfaceVariant = Color(0xFFE6E1D3),
+    primaryContainer = Color(0xFFF3D9D2),
+    onPrimaryContainer = Color(0xFF3A0A0A),
+    secondary = Color(0xFFA67A1E),
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFFF4E6C4),
+    background = Color(0xFFF6F1E6),
+    surface = Color(0xFFFFFBF3),
+    surfaceVariant = Color(0xFFE7DFCF),
 )
 
 private val Dark = darkColorScheme(
-    primary = Color(0xFF8FD3A4),
-    primaryContainer = Color(0xFF1F4D2E),
-    secondary = Color(0xFFFFB866),
-    secondaryContainer = Color(0xFF5A3A10),
-    background = Color(0xFF171A16),
-    surface = Color(0xFF1F231E),
-    surfaceVariant = Color(0xFF3A3F37),
+    primary = Color(0xFFFFB4A8),
+    onPrimary = Color(0xFF561E18),
+    primaryContainer = Color(0xFF6E2420),
+    secondary = Color(0xFFE6C06A),
+    secondaryContainer = Color(0xFF5A4300),
+    background = Color(0xFF1A1714),
+    surface = Color(0xFF221E1A),
+    surfaceVariant = Color(0xFF3D3730),
 )
 
 @Composable
-fun SanpoTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = if (isSystemInDarkTheme()) Dark else Light,
-        content = content,
-    )
+fun CastleTheme(content: @Composable () -> Unit) {
+    MaterialTheme(colorScheme = if (isSystemInDarkTheme()) Dark else Light, content = content)
 }

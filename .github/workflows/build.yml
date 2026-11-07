@@ -20,5 +20,5 @@ jobs:
           ./gradlew assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: tekuteku-sanpo-debug-apk
+          name: hyakumeijo-debug-apk
           path: app/build/outputs/apk/debug/*.apk
