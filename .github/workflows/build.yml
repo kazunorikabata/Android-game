@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +21,19 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace
+          cp app/build/outputs/apk/debug/app-debug.apk hyakumeijo.apk
       - uses: actions/upload-artifact@v4
         with:
           name: hyakumeijo-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: hyakumeijo.apk
+      # スマホから直接ダウンロードできるように、最新の APK を「latest」リリースに置く
+      - name: Publish to "latest" release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: latest
+          name: 百名城めぐり（最新版）
+          body: |
+            最新のビルドです（${{ github.sha }}）。
+            下の hyakumeijo.apk をタップしてダウンロード → 開いてインストールしてください。
+          files: hyakumeijo.apk
+          make_latest: true
