@@ -43,6 +43,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kabata.sanpo.Explore
+import com.kabata.sanpo.meisho.MeishoRepo
+import org.osmdroid.views.overlay.Marker
 import com.kabata.sanpo.progressBetween
 import com.kabata.sanpo.walk.FogOverlay
 import com.kabata.sanpo.walk.RouteOverlay
@@ -100,6 +102,8 @@ fun MapScreen() {
         }
     }
     var myLocation by remember { mutableStateOf<MyLocationNewOverlay?>(null) }
+    val meisho by MeishoRepo.state.collectAsStateWithLifecycle()
+    val markers = remember { mutableMapOf<String, Marker>() }
 
     LaunchedEffect(hasLocation) {
         if (hasLocation && myLocation == null) {
@@ -144,6 +148,22 @@ fun MapScreen() {
             update = {
                 fog.cells = walk.cells
                 route.segments = walk.segments
+                // 名所のピン（訪問ずみは薄く表示）
+                val ids = meisho.spots.mapTo(HashSet()) { s -> s.id }
+                markers.keys.filter { id -> id !in ids }.forEach { id -> markers.remove(id)?.let { m -> it.overlays.remove(m) } }
+                val visited = meisho.visitedIds
+                meisho.spots.forEach { s ->
+                    val marker = markers.getOrPut(s.id) {
+                        Marker(it).apply {
+                            position = GeoPoint(s.lat, s.lon)
+                            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+                            title = "${s.emoji} ${s.name}"
+                            it.overlays.add(this)
+                        }
+                    }
+                    marker.snippet = "${s.category}・${s.points}pt" + if (s.id in visited) "（訪問ずみ）" else ""
+                    marker.alpha = if (s.id in visited) 0.45f else 1f
+                }
                 it.invalidate()
             },
         )

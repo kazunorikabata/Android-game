@@ -12,8 +12,8 @@ android {
         applicationId = "com.kabata.sanpo"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.3.0"
     }
 
     // デバッグ用の署名鍵を固定する（ビルドごとに鍵が変わると上書きインストールできないため）
@@ -55,5 +55,6 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
 }

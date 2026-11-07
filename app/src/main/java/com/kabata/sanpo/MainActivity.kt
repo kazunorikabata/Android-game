@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity() {
             osmdroidTileCache = File(cacheDir, "osmdroid")
         }
         WalkTracker.init(applicationContext)
+        com.kabata.sanpo.meisho.MeishoRepo.init(applicationContext)
         permissionGranted = hasPermission()
         if (!permissionGranted) requestPermission()
 

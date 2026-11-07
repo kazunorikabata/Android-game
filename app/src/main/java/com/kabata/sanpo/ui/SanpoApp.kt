@@ -84,7 +84,11 @@ fun SanpoApp(vm: SanpoViewModel, permissionGranted: Boolean, onRequestPermission
                 )
                 NavigationBarItem(
                     selected = tab == 2, onClick = { tab = 2 },
-                    icon = { Text("🗺️", fontSize = 20.sp) }, label = { Text("たびの記録") },
+                    icon = { Text("📷", fontSize = 20.sp) }, label = { Text("めいしょ") },
+                )
+                NavigationBarItem(
+                    selected = tab == 3, onClick = { tab = 3 },
+                    icon = { Text("🗺️", fontSize = 20.sp) }, label = { Text("きろく") },
                 )
             }
         },
@@ -99,6 +103,7 @@ fun SanpoApp(vm: SanpoViewModel, permissionGranted: Boolean, onRequestPermission
                     onDebugSteps = vm::addDebugSteps,
                 )
                 1 -> MapScreen()
+                2 -> MeishoScreen()
                 else -> JourneyScreen(state)
             }
         }
@@ -138,6 +143,7 @@ private fun HomeScreen(
         TodayCard(state)
         PetCard(state)
         RoadCard(state)
+        MeishoSummaryCard()
 
         if (BuildConfig.DEBUG || !hasSensor) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -145,6 +151,23 @@ private fun HomeScreen(
                 OutlinedButton(onClick = { onDebugSteps(1_000) }) { Text("テスト +1000歩") }
             }
         }
+    }
+}
+
+@Composable
+private fun MeishoSummaryCard() {
+    val st by com.kabata.sanpo.meisho.MeishoRepo.state.collectAsStateWithLifecycle()
+    SectionCard("めいしょめぐり") {
+        Text(
+            "⭐ ${st.totalPoints} pt",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.secondary,
+        )
+        Text(
+            "おとずれた名所 ${st.visitedIds.size} か所・写真 ${st.visits.size} 枚",
+            style = MaterialTheme.typography.bodySmall,
+        )
     }
 }
 
