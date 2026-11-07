@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
             osmdroidTileCache = File(cacheDir, "osmdroid")
         }
         CastleRepo.init(applicationContext)
+        com.kabata.sanpo.quiz.QuizRepo.init(applicationContext)
         setContent {
             CastleTheme { CastleApp() }
         }

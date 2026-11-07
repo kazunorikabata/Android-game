@@ -35,6 +35,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.kabata.sanpo.data.CastleRepo
 import com.kabata.sanpo.data.Castles
@@ -50,7 +51,22 @@ fun HomeScreen(st: CastleRepo.State, location: Location?, onOpen: (Int) -> Unit)
         ProgressCard(st)
         location?.let { NearestCard(st, it, onOpen) }
         RecentCard(st, onOpen)
+        QuizCard()
         RegionCard(st)
+    }
+}
+
+@Composable
+private fun QuizCard() {
+    val best by com.kabata.sanpo.quiz.QuizRepo.best.collectAsStateWithLifecycle()
+    val perfect = best.values.count { it.perfect }
+    SectionCard("お城クイズ") {
+        Text("🎓 満点 $perfect / 100 城", fontSize = 22.sp, fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.secondary)
+        Text(
+            "挑戦したお城 ${best.size} 城。お城を選んで「❓ クイズに挑戦」から遊べます（登城していなくてもOK）。",
+            style = MaterialTheme.typography.bodySmall,
+        )
     }
 }
 

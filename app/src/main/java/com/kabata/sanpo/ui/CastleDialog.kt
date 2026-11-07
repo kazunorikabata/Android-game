@@ -21,6 +21,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,8 +48,11 @@ fun CastleDialog(
     onCheckIn: () -> Unit,
     onPastPhoto: () -> Unit,
     onRequestPermission: () -> Unit,
+    onQuiz: () -> Unit,
 ) {
     val context = LocalContext.current
+    val bestScores by com.kabata.sanpo.quiz.QuizRepo.best.collectAsStateWithLifecycle()
+    val best = bestScores[no]
     val castle = Castles.byNo(no)
     val visits = st.visitsFor(no).sortedByDescending { it.time }
     val first = st.firstVisit(no)
@@ -109,6 +114,12 @@ fun CastleDialog(
                 }
                 OutlinedButton(onClick = onPastPhoto, modifier = Modifier.fillMaxWidth()) {
                     Text("🖼 前に行ったときの写真で記録")
+                }
+                OutlinedButton(onClick = onQuiz, modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        "❓ クイズに挑戦（${com.kabata.sanpo.quiz.Quiz.countFor(no)}問）" +
+                            (best?.let { if (it.perfect) "　🎓満点" else "　最高 ${it.score}/${it.total}" } ?: ""),
+                    )
                 }
             }
         },

@@ -12,8 +12,8 @@ android {
         applicationId = "com.kabata.sanpo"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.0.0"
+        versionCode = 5
+        versionName = "1.1.0"
     }
 
     // デバッグ用の署名鍵を固定する（ビルドごとに鍵が変わると上書きインストールできないため）

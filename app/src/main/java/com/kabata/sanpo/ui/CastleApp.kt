@@ -56,6 +56,7 @@ fun CastleApp() {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     var selected by rememberSaveable { mutableStateOf<Int?>(null) }
     var celebrate by remember { mutableStateOf<Visit?>(null) }
+    var quizNo by rememberSaveable { mutableStateOf<Int?>(null) }
 
     // --- 写真で登城 ---
     var pendingNo by rememberSaveable { mutableStateOf<Int?>(null) }
@@ -147,8 +148,11 @@ fun CastleApp() {
             onCheckIn = { takePhoto(no) },
             onPastPhoto = { pickPast(no) },
             onRequestPermission = { permissionLauncher.launch(locationPermissions) },
+            onQuiz = { quizNo = no },
         )
     }
+
+    quizNo?.let { no -> QuizDialog(no, onClose = { quizNo = null }) }
 
     celebrate?.let { v -> CelebrateDialog(v, st, onDismiss = { celebrate = null }) }
 }

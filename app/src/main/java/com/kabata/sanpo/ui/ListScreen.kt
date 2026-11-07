@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kabata.sanpo.data.Castle
 import com.kabata.sanpo.data.CastleRepo
 import com.kabata.sanpo.data.Castles
@@ -97,6 +98,8 @@ fun ListScreen(st: CastleRepo.State, location: Location?, onOpen: (Int) -> Unit)
 @Composable
 private fun CastleRow(castle: Castle, visited: Boolean, location: Location?, onOpen: (Int) -> Unit) {
     val near = CastleRepo.isNear(castle, location)
+    val best by com.kabata.sanpo.quiz.QuizRepo.best.collectAsStateWithLifecycle()
+    val quizPerfect = best[castle.no]?.perfect == true
     Card(
         modifier = Modifier.fillMaxWidth().clickable { onOpen(castle.no) },
         colors = CardDefaults.cardColors(
@@ -121,6 +124,7 @@ private fun CastleRow(castle: Castle, visited: Boolean, location: Location?, onO
                     style = MaterialTheme.typography.bodySmall,
                 )
             }
+            if (quizPerfect) Text("🎓", fontSize = 18.sp)
             Text(
                 when {
                     visited -> "✅"
