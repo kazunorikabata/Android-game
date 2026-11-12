@@ -20,27 +20,31 @@ jobs:
       - name: Build debug APKs
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug :kanko:assembleDebug --stacktrace
+          ./gradlew :app:assembleDebug :kanko:assembleDebug :eigo:assembleDebug --stacktrace
           cp app/build/outputs/apk/debug/app-debug.apk hyakumeijo.apk
           cp kanko/build/outputs/apk/debug/kanko-debug.apk kanko.apk
+          cp eigo/build/outputs/apk/debug/eigo-debug.apk eigo.apk
       - uses: actions/upload-artifact@v4
         with:
           name: apks
           path: |
             hyakumeijo.apk
             kanko.apk
+            eigo.apk
       # スマホから直接ダウンロードできるように、最新の APK を「latest」リリースに置く
       - name: Publish to "latest" release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          name: 最新版（百名城めぐり・にっぽん観光めぐり）
+          name: 最新版（百名城めぐり・にっぽん観光めぐり・英語あなうめパズル）
           body: |
             最新のビルドです（${{ github.sha }}）。
             - hyakumeijo.apk … 百名城めぐり
             - kanko.apk … にっぽん観光めぐり
+            - eigo.apk … 英語あなうめパズル
             タップしてダウンロード → 開いてインストールしてください。
           files: |
             hyakumeijo.apk
             kanko.apk
+            eigo.apk
           make_latest: true

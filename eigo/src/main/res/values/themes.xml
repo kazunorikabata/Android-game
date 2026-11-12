@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.Eigo" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/bg</item>
+    </style>
+    <color name="bg">#FFF5F3FF</color>
+    <color name="icon_bg">#FF5B4BDB</color>
+</resources>

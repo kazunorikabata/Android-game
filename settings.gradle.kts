@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "HyakumeijoMeguri"
 include(":app")
 include(":kanko")
+include(":eigo")
