@@ -37,11 +37,24 @@ import com.kabata.eigo.Progress
 import com.kabata.eigo.Question
 
 /** 遊んでいる1回分（ステージ or 復習） */
-data class Session(val title: String, val questions: List<Question>, val level: Int?, val stage: Int?)
+data class Session(
+    val title: String,
+    val questions: List<Question>,
+    val level: Int?,
+    val stage: Int?,
+    /** 盤面を作るときの乱数の種（ステージは毎回同じ盤面になる） */
+    val seed: Long,
+)
 
 fun stageSession(level: Int, stage: Int): Session {
     val name = Game.levels.first { it.no == level }.name
-    return Session("$name ステージ${stage + 1}", Game.stage(level, stage).shuffled(), level, stage)
+    return Session("$name ステージ${stage + 1}", Game.stage(level, stage), level, stage, level * 100L + stage)
+}
+
+/** まちがえた問題からふくしゅう用のクロスワードを作る（なければ null） */
+fun reviewSession(): Session? {
+    val qs = Progress.state.value.missed.mapNotNull { Game.byKey(it) }.shuffled().take(Game.STAGE_SIZE)
+    return if (qs.isEmpty()) null else Session("ふくしゅう", qs, null, null, System.currentTimeMillis())
 }
 
 @Composable
@@ -55,7 +68,7 @@ fun EigoApp() {
             if (s == null) {
                 HomeScreen(onStart = { session = it; round++ })
             } else {
-                PuzzleScreen(
+                CrosswordScreen(
                     roundKey = round,
                     session = s,
                     onExit = { session = null },
@@ -75,8 +88,8 @@ private fun HomeScreen(onStart: (Session) -> Unit) {
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("英語あなうめパズル", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
-        Text("文字のタイルをならべて、英文の空欄をうめよう！", style = MaterialTheme.typography.bodyMedium)
+        Text("英語クロスワード", style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+        Text("英文の空欄に入る単語で、クロスワードを完成させよう！", style = MaterialTheme.typography.bodyMedium)
 
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)) {
             Row(Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -87,10 +100,7 @@ private fun HomeScreen(onStart: (Session) -> Unit) {
                 Column(horizontalAlignment = Alignment.End) {
                     Text("まちがえた問題 ${st.missed.size}問", style = MaterialTheme.typography.bodySmall)
                     Button(
-                        onClick = {
-                            val qs = st.missed.mapNotNull { Game.byKey(it) }.shuffled().take(Game.STAGE_SIZE)
-                            onStart(Session("ふくしゅう", qs, null, null))
-                        },
+                        onClick = { reviewSession()?.let(onStart) },
                         enabled = st.missed.isNotEmpty(),
                     ) { Text("📝 ふくしゅう") }
                 }
@@ -102,7 +112,7 @@ private fun HomeScreen(onStart: (Session) -> Unit) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(level.name, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
                     Text(
-                        level.desc + if (level.decoys > 0) "（ダミー文字 ${level.decoys}こ）" else "",
+                        level.desc,
                         style = MaterialTheme.typography.bodySmall,
                     )
                     val count = Game.stageCount(level.no)
@@ -124,7 +134,7 @@ private fun HomeScreen(onStart: (Session) -> Unit) {
             }
         }
         Text(
-            "ステージをクリアすると次のステージが開きます。ミス・ヒント・パスが少ないほど星が増えます。",
+            "ステージをクリアすると次のステージが開きます。ヒントや答え合わせのまちがいが少ないほど星が増えます。",
             style = MaterialTheme.typography.bodySmall,
         )
     }

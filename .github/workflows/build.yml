@@ -36,12 +36,12 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          name: 最新版（百名城めぐり・にっぽん観光めぐり・英語あなうめパズル）
+          name: 最新版（百名城めぐり・にっぽん観光めぐり・英語クロスワード）
           body: |
             最新のビルドです（${{ github.sha }}）。
             - hyakumeijo.apk … 百名城めぐり
             - kanko.apk … にっぽん観光めぐり
-            - eigo.apk … 英語あなうめパズル
+            - eigo.apk … 英語クロスワード
             タップしてダウンロード → 開いてインストールしてください。
           files: |
             hyakumeijo.apk
