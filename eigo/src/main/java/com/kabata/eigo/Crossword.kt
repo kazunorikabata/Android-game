@@ -18,7 +18,7 @@ data class Entry(
 /** できあがったクロスワード */
 class Crossword(val rows: Int, val cols: Int, val entries: List<Entry>) {
     val solution: Map<Pair<Int, Int>, Char> = buildMap {
-        entries.forEach { e -> e.cells.forEachIndexed { i, cell -> put(cell, e.word[i]) } }
+        this@Crossword.entries.forEach { e -> e.cells.forEachIndexed { i, cell -> put(cell, e.word[i]) } }
     }
     val numbers: Map<Pair<Int, Int>, Int> = entries.associate { (it.row to it.col) to it.number }
 
