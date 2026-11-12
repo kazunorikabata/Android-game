@@ -20,7 +20,7 @@ jobs:
       - name: Build debug APKs
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug :kanko:assembleDebug :eigo:assembleDebug --stacktrace
+          ./gradlew :app:assembleDebug :kanko:assembleDebug :eigo:assembleDebug
           cp app/build/outputs/apk/debug/app-debug.apk hyakumeijo.apk
           cp kanko/build/outputs/apk/debug/kanko-debug.apk kanko.apk
           cp eigo/build/outputs/apk/debug/eigo-debug.apk eigo.apk

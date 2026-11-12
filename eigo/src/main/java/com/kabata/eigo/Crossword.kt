@@ -79,8 +79,8 @@ object CrosswordGenerator {
                 for (i in word.indices) {
                     if (word[i] != ch) continue
                     for (across in listOf(true, false)) {
-                        if (across && mask and 1 != 0) continue
-                        if (!across && mask and 2 != 0) continue
+                        if (across && (mask and 1) != 0) continue
+                        if (!across && (mask and 2) != 0) continue
                         val r = if (across) cell.first else cell.first - i
                         val c = if (across) cell.second - i else cell.second
                         val inter = score(word, r, c, across, grid, dirs, limit)
@@ -120,7 +120,7 @@ object CrosswordGenerator {
             if (ch != null) {
                 if (ch != word[i]) return -1
                 val mask = dirs[cell] ?: 0
-                if (mask and (if (across) 1 else 2) != 0) return -1
+                if ((mask and (if (across) 1 else 2)) != 0) return -1
                 inter++
             } else {
                 // となりのマスに文字があると、意図しない単語ができてしまう
