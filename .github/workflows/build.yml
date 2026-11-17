@@ -20,10 +20,11 @@ jobs:
       - name: Build debug APKs
         run: |
           chmod +x gradlew
-          ./gradlew :app:assembleDebug :kanko:assembleDebug :eigo:assembleDebug
+          ./gradlew :app:assembleDebug :kanko:assembleDebug :eigo:assembleDebug :sangoku:assembleDebug
           cp app/build/outputs/apk/debug/app-debug.apk hyakumeijo.apk
           cp kanko/build/outputs/apk/debug/kanko-debug.apk kanko.apk
           cp eigo/build/outputs/apk/debug/eigo-debug.apk eigo.apk
+          cp sangoku/build/outputs/apk/debug/sangoku-debug.apk sangoku.apk
       - uses: actions/upload-artifact@v4
         with:
           name: apks
@@ -31,20 +32,23 @@ jobs:
             hyakumeijo.apk
             kanko.apk
             eigo.apk
+            sangoku.apk
       # スマホから直接ダウンロードできるように、最新の APK を「latest」リリースに置く
       - name: Publish to "latest" release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
-          name: 最新版（百名城めぐり・にっぽん観光めぐり・英語クロスワード）
+          name: 最新版（4つのアプリ）
           body: |
             最新のビルドです（${{ github.sha }}）。
             - hyakumeijo.apk … 百名城めぐり
             - kanko.apk … にっぽん観光めぐり
             - eigo.apk … 英語クロスワード
+            - sangoku.apk … 三国群雄伝
             タップしてダウンロード → 開いてインストールしてください。
           files: |
             hyakumeijo.apk
             kanko.apk
             eigo.apk
+            sangoku.apk
           make_latest: true

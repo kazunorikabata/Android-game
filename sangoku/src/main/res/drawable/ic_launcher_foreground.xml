@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 旗と剣のアイコン -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#FFE8C468"
+        android:pathData="M36,26 L39,26 L39,84 L36,84 Z" />
+    <path
+        android:fillColor="#FFF4ECD8"
+        android:pathData="M39,27 L72,27 L66,37 L72,47 L39,47 Z" />
+    <path
+        android:fillColor="#FF6B1F1F"
+        android:pathData="M48,31 L58,31 L58,33 L54,33 L54,43 L52,43 L52,33 L48,33 Z" />
+    <path
+        android:fillColor="#FFDDDDDD"
+        android:pathData="M58,84 L60,58 L62,52 L64,58 L66,84 Z" />
+    <path
+        android:fillColor="#FFE8C468"
+        android:pathData="M55,58 L69,58 L69,61 L55,61 Z M60.5,61 L63.5,61 L63.5,70 L60.5,70 Z" />
+</vector>
