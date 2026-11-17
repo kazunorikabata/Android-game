@@ -250,7 +250,7 @@ object Engine {
             // 攻撃（1ターンに1回まで）
             if (!attacked && enemies.isNotEmpty() && city.troops >= 7000 && rng.nextInt(100) < 55) {
                 val target = enemies.minByOrNull { it.troops * (1 + it.defense / 700.0) }!!
-                val strength = target.troops * (1 + target.defense / 700.0) * 1.3
+                val strength = target.troops * (1 + target.defense / 700.0) * 1.1
                 val send = city.troops * 7 / 10
                 val gens = g.generalsIn(city).filter { !it.acted }.sortedByDescending { it.war }.take(2)
                 if (send > strength && gens.isNotEmpty()) {
@@ -287,7 +287,7 @@ object Engine {
                     frontline && city.troops < 9000 + city.defense * 8 && city.gold >= draftCost(gen) -> draft(g, gen, city)
                     city.agri < 650 && city.gold >= 50 && rng.nextBoolean() -> develop(g, gen, city, Develop.AGRI)
                     city.comm < 650 && city.gold >= 50 -> develop(g, gen, city, Develop.COMM)
-                    frontline && city.defense < 600 && city.gold >= 80 -> develop(g, gen, city, Develop.WALL)
+                    frontline && city.defense < 500 && city.gold >= 80 -> develop(g, gen, city, Develop.WALL)
                     city.gold >= draftCost(gen) + 200 -> draft(g, gen, city)
                 }
             }
